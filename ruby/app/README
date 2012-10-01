@@ -1,0 +1,81 @@
+Ruby Application Template
+===========================================================
+
+0. About
+-----------------------------------------------------------
+
+Basic file and directory structure for writing ad-hoc or
+one off ruby applications that include documentation and
+testing directories.
+
+No implementation should be listed within this directory
+structure. It's just easy to pull this repository down into
+a new folder from where ever and start work on a new 
+application without the startup hassle.
+
+1. Folder structure
+-----------------------------------------------------------
+
+Folder structure should be used as follows:
+
+- bin/
+Should hold a script file marked as executable that will
+not do much other than execute the main ruby script.
+
+- conf/
+Any extra configuration files that need to go along with
+the executable. Found this to be a good spot for any yaml 
+or loose XML files.
+
+- data/
+This has been used in the past as the folder to hold any
+database associated with the application. Most applications
+have only ever used a SQLite database, so this folder holds
+that nicely.
+
+- lib/
+Holds the source code for the application. The lib/ folder
+should contain a folder that is the same name as the 
+application which will hold ruby files for the application.
+Any extra external source code can go into this folder also 
+listed under their respective folders.
+
+- man/
+Documentation for the application
+
+- test/
+Test fixtures for the application. The Rakefile is already 
+setup to execute tests listed in this folder.
+
+2. Using the project structure
+-----------------------------------------------------------
+
+	2.1. Fill out the Gemfile
+
+	Put the items in the gem file that are needed for your 
+	project. An example is as follows:
+
+	source "http://rubygems.org"
+	gem "nokogiri"
+	gem "rack", "~>1.1"
+	gem "rspec", :require => "spec"
+
+	2.2. Install the required gems
+
+	At the console, run the following
+
+	$ bundle install
+	$ git add Gemfile.lock
+
+3. TODO
+-----------------------------------------------------------
+
+- Would really like to make this into a generator of some
+  sort
+
+- Would like to add a rule into the Rakefile that will 
+  build documentation on demand
+
+- Add the "bundle install" command as a dependency into the
+  Rakefile so there is some form of automation when 
+  installing gem dependencies
