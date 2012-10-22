@@ -5,6 +5,4 @@ This project serves as an application base for when a console tool is
 required for development in a hurry, but no one has time to go through and
 implement the simple things properly.
 
-At this point in time, this project has templated some command line option
-code that can be easily extended (due to strategically placed comments).
-
+This template is an empty application.
