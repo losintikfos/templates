@@ -1,11 +1,20 @@
 # Generic Makefile for compiling a simple executable.
 #
 #
+
+OS := $(shell uname)
+
 CC := clang
 SRCDIR := src
 BUILDDIR := build
 CFLAGS := -g -Wall `sdl-config --cflags`
-LFLAGS := -framework OpenGL `sdl-config --libs`
+
+ifeq ($(OS),Linux)
+   LFLAGS := `sdl-config --libs` `pkg-config --libs gl`
+else ifeq ($(OS),Darwin)
+   LFLAGS := -framework OpenGL `sdl-config --libs`
+endif
+
 TARGET := bin/program
 
 SRCEXT := c
