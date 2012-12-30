@@ -1,0 +1,6 @@
+sdl application template
+===========================================================================
+
+SDL application template with setup, teardown, event handling and 
+application loop. Makefiles have been geared towards SDL and OpenGL 
+libraries.
