@@ -1,0 +1,10 @@
+Twitter Bootstrap on Express
+============================================
+
+A quick start nodejs (express) application that includes twitter bootstrap and
+jQuery.
+
+To get started, take a copy of the directory and issue the following:
+
+# npm install
+
