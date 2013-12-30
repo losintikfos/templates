@@ -49,6 +49,14 @@ int main(int argc, char *argv[]) {
    glutMouseFunc(mouse);
    glutPassiveMotionFunc(mouseMotion);
 
+   // setup open gl
+   glShadeModel(GL_SMOOTH);
+   glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
+   glClearDepth(1.0f);
+   glEnable(GL_DEPTH_TEST);
+   glDepthFunc(GL_LEQUAL);
+   glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
    // run the program
    glutMainLoop();
 
