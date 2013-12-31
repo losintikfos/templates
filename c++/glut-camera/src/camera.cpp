@@ -57,7 +57,7 @@ void camera::yaw(const float angle) {
 void camera::roll(const float angle) {
    this->rotatedZ += angle;
 
-   this->viewDir = glm::normalize(
+   this->rightVector = glm::normalize(
       this->rightVector * cosf(angle * PION180) +
       this->upVector * sinf(angle * PION180)
    );
