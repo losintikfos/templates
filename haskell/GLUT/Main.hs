@@ -3,6 +3,10 @@ module Main where
 import Data.IORef
 import Graphics.UI.GLUT
 
+-- TODO: fill out the data type with any state that you need your scene
+--       to hold. It gets fed to the update routine
+data SceneState = SceneState { currentTime :: Int }
+
 initGL :: IO ()
 initGL = do
    getArgsAndInitialize
@@ -18,7 +22,6 @@ initGL = do
    blendFunc            $= (SrcAlpha, OneMinusSrcAlpha)
    colorMaterial        $= Just (FrontAndBack, AmbientAndDiffuse)
    reshapeCallback      $= Just resizeScene
-   displayCallback      $= renderScene
    return ()
 
 resizeScene :: Size -> IO ()
@@ -34,30 +37,33 @@ resizeScene s@(Size width height) = do
    h2 = half height
    half z = realToFrac z / 2
 
-renderScene :: IO ()
-renderScene = do
+renderScene :: IORef SceneState -> IO ()
+renderScene state = do
    clear [ ColorBuffer, DepthBuffer ]
    loadIdentity
    swapBuffers
 
-updateScene :: IORef Int -> IO ()
-updateScene oldTime = do
+updateScene :: IORef SceneState -> IO ()
+updateScene state = do
+   state' <- get state
    newTime' <- get elapsedTime
-   oldTime' <- get oldTime
-
-   -- let dt = let dt' = (fromIntegral $ newTime' - oldTime') / 50
-   --         in if dt' < 0.8 then dt' else 0.8
+   let oldTime' = currentTime state'
    let dt = (fromIntegral $ newTime' - oldTime') / 1000
+
    -- TODO: perform any scene update logic here based on dt
 
-   writeIORef oldTime newTime'
-   renderScene
+   -- TODO: write any updated state into state''
+   let state'' = (state' { currentTime = newTime' })
+   writeIORef state state''
+
+   renderScene state
    return ()
 
 main :: IO ()
 main = do
-   oldTime <- newIORef (0 :: Int)
+   currentState <- newIORef (SceneState { currentTime = 0 })
    initGL
-   idleCallback         $= Just (updateScene oldTime)
+   idleCallback         $= Just (updateScene currentState)
+   displayCallback      $= (renderScene currentState)
    mainLoop
 
